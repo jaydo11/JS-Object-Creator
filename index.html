@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JS Object Creator</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+
+        <!-- Required for ui-sortable -->
+        <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+        <script src="http://cdn.jsdelivr.net/g/jquery.ui@1.10%28jquery.ui.core.min.js+jquery.ui.widget.min.js+jquery.ui.mouse.min.js+jquery.ui.sortable.min.js%29" type="text/javascript"></script>
+
+        <!-- AngularJS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-messages.js" type="text/javascript"></script>
+        
+        <!-- ui-sortable -->
+        <script src="js/lib/sortable.min.js" type="text/javascript"></script>
+
+        <script src="js/script.js" type="text/javascript"></script>
+    </head>
+    <body ng-app="app" ng-controller="controller">
+        <div id="leftColumn">
+            <h3>Object:</h3>
+            <select ng-model="object.type" ng-options="item as item.value for item in variablePrefixes" class="form-control">
+            </select>
+            <input type="text" ng-model="object.name" class="form-control" placeholder="Name" />
+
+            <h4>Properties:</h4>
+
+            <div ng-include="'partials/propertiesList.html'" ng-init="level = 0;"></div>
+
+            <button class="btn btn-default" ng-click="addNewProperty()"><span class="glyphicon glyphicon-plus"></span> Add property</button>
+
+        </div>
+
+        <div id="rightColumn">
+            <h3>Result</h3>
+            <h5 style="display: inline-block; margin: 0; font-weight: bold;">Spacing:</h5>
+            <select ng-model="resultSpacing" class="form-control">
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="tab">Tab</option>
+            </select>
+            <pre id="result" ng-bind="result"></pre>
+
+            <button id="copyButton" class="btn btn-default" ng-click="copyToClipboard($event)"><span class="glyphicon glyphicon-copy"></span> Copy to clipboard</button>
+            <div ng-messages="copyStatus" id="copyStatus">
+                <span ng-message="success">Copied to clipboard!</span>
+                <span ng-message="error">Unable to copy :(</span>
+            </div>
+            <textarea id="hidden" style="position: absolute; opacity: 0;"></textarea>
+        </div>
+    </body>
+</html>

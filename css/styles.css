@@ -1,0 +1,93 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+#leftColumn, #rightColumn {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    padding: 15px;
+}
+
+#leftColumn {
+    left: 0;
+    border-right: 1px dashed black;
+}
+
+hr {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #999;
+}
+
+.form-control {
+  display: inline-block;
+  width: unset;
+  margin-right: 5px;
+}
+
+.form-control, .btn {
+    margin-bottom: 5px;
+}
+
+.subproperty {
+    margin-left: 25px;
+}
+
+.dragHandle {
+    cursor: move;
+}
+
+.value {
+    width: 176px !important;
+}
+
+.glyphicon-arrow-right {
+    margin-right: 10px;
+}
+
+.form-inline > .form-group > .form-control:not(:first-child), .form-inline > .form-group > .btn:not(:first-child) {
+    margin-left: -5px;
+}
+
+.form-inline > .form-group > .form-control, .form-inline > .form-group > .btn {
+    margin-right: 0;
+}
+
+.form-inline > .form-group > *:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-inline > .form-group > *:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+pre {
+    margin-top: 5px;
+}
+
+#copyStatus {
+    color: grey;
+    font-size: 0.9em;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.radioLabel {
+    position: relative;
+    top: -2px;
+}

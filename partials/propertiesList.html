@@ -1,0 +1,58 @@
+<div ui-sortable ng-model="properties">
+    <div ng-repeat="property in properties track by $index" class="property">
+        <form class="form-inline" ng-style="{'margin-left': parent.type === 'array' ? '10px' : '0'}">
+            <!-- Arrow to indicate sub-item -->
+            <span ng-if="level > 0" class="glyphicon glyphicon-arrow-right"></span>
+            
+            <span ng-if="parent.type === 'array'">[{{$index}}]&nbsp;&nbsp;&nbsp;</span>
+            
+            <!-- Anything in the form group will be grouped together on a single line -->
+            <div class="form-group">
+                
+                <!-- Button (div) for easy drag access -->
+                <!--<div class="btn btn-default dragHandle"><span class="glyphicon glyphicon-move"></span></div>-->
+                <div class="btn btn-default dragHandle"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
+                
+                <!-- Property name -->
+                <input ng-if="parent.type !== 'array' || (property.type === 'object' && parent.type !== 'array')" type="text" class="form-control" ng-model="property.name" ng-model-options="{'debounce': 500}" placeholder="Name ..." />
+                
+                <!-- Property type -->
+                <select ng-if="parent.type !== 'array'" ng-model="property.type" ng-change="resetSubProperties(property)" class="form-control">
+                    <option value="string">String</option>
+                    <option value="number">Number</option>
+                    <option value="boolean">Boolean</option>
+                    <option value="date">Date</option>
+                    <option value="object">Object</option>
+                    <option value="array">Array</option>
+                </select>
+                
+                <!-- Property value -->
+                <input ng-if="property.type !== 'boolean' && property.type !== 'object' && property.type !== 'array'" ng-model="property.value" type="{{property.type === 'date' || parent.arrayType === 'date' ? 'date' : property.type === 'number' || parent.arrayType === 'number' ? 'number' : 'text'}}" class="form-control value" placeholder="Value" />
+                <div ng-if="property.type === 'boolean'" class="form-control">
+                    <span class="radioLabel">True </span><input type="radio" ng-model="property.value" value="true" />
+                    &nbsp;
+                    <span class="radioLabel">False </span><input type="radio" ng-model="property.value" value="false"/>
+                </div>
+                
+            </div>
+            <!-- Type of array -->
+            <div ng-if="property.type === 'array'" style="display: inline-block;">
+                <span>&nbsp;of&nbsp;</span>
+                <select ng-model="property.arrayType" ng-change="resetSubProperties(property);" class="form-control">
+                    <option value="string">Strings</option>
+                    <option value="number">Numbers</option>
+                    <option value="date">Dates</option>
+                    <option value="object">Objects</option>
+                    <option value="array">Arrays</option>
+                </select>
+            </div>
+            <button ng-if="property.type === 'object' || property.type === 'array'" class="btn btn-default" ng-click="addNewSubProperty(property)"><span class="glyphicon glyphicon-plus"></span> Add property</button>
+            <button class="btn btn-default" ng-click="copyProperty(property, parent)"><span class="glyphicon glyphicon-copy"></span></button>
+            <button class="btn btn-default" ng-click="removeProperty(properties, $index)"><span class="glyphicon glyphicon-trash"></span></button>
+        </form>
+
+        <div ng-if="property.properties.length > 0">
+            <div ng-init="properties = property.properties; parent = property; level = level + 1;" ng-include="'partials/propertiesList.html'" class="subproperty" ng-style="{'margin-left': (level * 10) + 'px'}"></div>  
+        </div>
+    </div>
+</div>
